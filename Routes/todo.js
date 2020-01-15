@@ -17,27 +17,28 @@ router.post('/', (req, res) => {
   const newTodo = new Todo({
     name: req.body.name,
     details: req.body.details,
-    completed: req.body.status
+    completed: req.body.completed
   })
 
   newTodo.save()
     .then(todo => res.json(todo))
+    .catch(err => console.log(err))
 })
 
 //edit todo
-router.patch(':/id', (req, res) => {
+router.patch('/:id', (req, res) => {
   const updatedTodo = {
     name: req.body.name,
     details: req.body.details,
-    completed: req.body.status
+    completed: req.body.completed
   }
   Todo.findOneAndUpdate({_id: req.params.id}, updatedTodo)
 })
 
 //delete todo
-router.delete(':/id', (req, res) => {
+router.delete('/:id', (req, res) => {
   Todo.findOneAndDelete({_id: req.params.id})
-    .then(() => console.log('deleted'))
+    .then(() => res.json({deleted: "true"}))
     .catch(err => console.log(err))
 })
 

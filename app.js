@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const cors = require("cors");
 const db = require('./config/database')
 
 const app = express();
-
+app.use(cors())
 //load routes
 const todos = require("./Routes/todo")
 
@@ -16,7 +16,6 @@ mongoose
   })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err))
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
